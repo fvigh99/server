@@ -1,3 +1,4 @@
+import { User } from 'src/user/user.entity';
 import {
   Column,
   Entity,
@@ -10,9 +11,9 @@ export class Schedule {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne((type) => Schedule)
+  @ManyToOne((type) => User)
   @JoinTable()
-  trainer: Schedule;
+  trainer: User;
 
   @Column({ name: 'day', type: 'int', nullable: false })
   day: number;

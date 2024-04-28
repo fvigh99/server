@@ -13,7 +13,6 @@ export class AuthenticationService {
 
   async signIn(username: string, pass: string): Promise<any> {
     const user = await this.userService.getUserByUsername(username);
-    log(pass);
     let message: string;
     if (!user) {
       message = 'Hibás bejelentkezési adatok';

@@ -26,7 +26,7 @@ export class UserController {
     }
   }
 
-  @Get('/:id')
+  @Get('/getId/:id')
   getUserById(@Param('id') id: number): Promise<User> {
     try {
       return this.userService.getUserById(id);
@@ -35,7 +35,7 @@ export class UserController {
     }
   }
 
-  @Get('/trainers')
+  @Get('/getRole')
   getUsersByRole(): Promise<User[]> {
     try {
       return this.userService.getUserByRole('EDZO');

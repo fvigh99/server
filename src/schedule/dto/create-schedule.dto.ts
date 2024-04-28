@@ -1,9 +1,9 @@
 import { IsNotEmpty } from 'class-validator';
-import { Schedule } from 'src/schedule/schedule.entity';
+import { User } from 'src/user/user.entity';
 
 export class CreateScheduleDTO {
   @IsNotEmpty({ message: 'trainer field cannot be empty' })
-  trainer: Schedule;
+  trainer: User;
 
   @IsNotEmpty({ message: 'day field cannot be empty' })
   day: number;
