@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsInt } from 'class-validator';
+import { IsNotEmpty, IsInt, IsDate } from 'class-validator';
 import { Machine } from 'src/machine/machine.entity';
 import { User } from 'src/user/user.entity';
 
@@ -16,4 +16,6 @@ export class CreateExerciseDTO {
   intensity?: number;
   @IsInt({ message: 'duration must be number' })
   duration?: number;
+  @IsDate({ message: 'date must be type date' })
+  date?: Date;
 }

@@ -47,6 +47,11 @@ export class MachineService {
   async updateMachine(id: number, updateMachineDTO: UpdateMachineDTO) {
     const machineFound = await this.getMachineById(id);
     if (!machineFound) throw new Error(`A note "${id}" was not found`);
-    await this.machinesRepository.update(id, updateMachineDTO);
+    await this.machinesRepository.update(id, {
+      name: updateMachineDTO.name,
+      picture: updateMachineDTO.picture,
+      summary: updateMachineDTO.summary,
+      type: updateMachineDTO.type,
+    });
   }
 }

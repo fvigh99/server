@@ -28,4 +28,6 @@ export class Exercise {
   intensity: number;
   @Column({ name: 'duration', type: 'int', nullable: true, default: null })
   duration: number;
+  @Column({ name: 'date', type: 'date', nullable: false })
+  date: Date;
 }
