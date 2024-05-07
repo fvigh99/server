@@ -5,7 +5,6 @@ import { CreateUserDTO } from './dto/create-user.dto';
 import { UpdateUserDTO } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
-import { log } from 'console';
 
 @Injectable()
 export class UserService {
@@ -86,7 +85,6 @@ export class UserService {
   }
 
   async updateUser(id: number, updateUserDTO: UpdateUserDTO) {
-    log(updateUserDTO);
     const userFound = await this.getUserById(id);
     if (!userFound) throw new Error(`A user "${id}" was not found`);
     await this.usersRepository.update(id, {

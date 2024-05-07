@@ -4,7 +4,7 @@ import {
   Column,
   Entity,
   JoinColumn,
-  OneToOne,
+  ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 @Entity('groupExercises')
@@ -18,11 +18,11 @@ export class GroupExercise {
   @Column({ name: 'duration', type: 'int', nullable: false })
   duration: number;
 
-  @OneToOne((type) => Schedule)
+  @ManyToOne((type) => Schedule)
   @JoinColumn()
   schedule: Schedule;
 
-  @OneToOne((type) => User)
+  @ManyToOne((type) => User)
   @JoinColumn()
   user: User;
 }

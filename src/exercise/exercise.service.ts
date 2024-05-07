@@ -4,7 +4,6 @@ import { Repository } from 'typeorm';
 import { CreateExerciseDTO } from './dto/create-exercise.dto';
 import { UpdateExerciseDTO } from './dto/update-exercise.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { log } from 'console';
 
 @Injectable()
 export class ExerciseService {
@@ -30,19 +29,18 @@ export class ExerciseService {
     return found;
   }
 
-  async getExerciseByUserId(id: number): Promise<Exercise> {
-    const found = await this.exercisesRepository.findOne({
+  async getExerciseByUserId(id: number): Promise<Exercise[]> {
+    const found = await this.exercisesRepository.find({
       where: { user: { id: id } },
       relations: { machine: true, user: true },
     });
-    if (!found) {
+    /* if (!found) {
       throw new NotFoundException(`Exercise from user "${id}" not found`);
-    }
+    } */
     return found;
   }
 
   async addExercise(createExerciseDTO: CreateExerciseDTO): Promise<Exercise> {
-    log(createExerciseDTO);
     const { machine, user, weight, count, intensity, duration, date } =
       createExerciseDTO;
     const exercise = this.exercisesRepository.create({

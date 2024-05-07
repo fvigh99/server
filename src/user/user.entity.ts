@@ -4,7 +4,7 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
-  OneToOne,
+  ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 @Entity('users')
@@ -32,7 +32,7 @@ export class User {
   @Column({ name: 'picture', length: 400, nullable: true })
   picture: string;
 
-  @OneToOne((type) => Pass)
+  @ManyToOne((type) => Pass)
   @JoinColumn()
   pass: Pass;
 

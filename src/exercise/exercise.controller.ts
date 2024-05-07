@@ -26,10 +26,19 @@ export class ExerciseController {
     }
   }
 
-  @Get('/:id')
+  @Get('/getId/:id')
   getExerciseById(@Param('id') id: number): Promise<Exercise> {
     try {
       return this.exerciseService.getExerciseById(id);
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  @Get('/userId/:id')
+  getExerciseByUserId(@Param('id') id: number): Promise<Exercise[]> {
+    try {
+      return this.exerciseService.getExerciseByUserId(id);
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }

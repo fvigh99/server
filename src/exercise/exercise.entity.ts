@@ -4,7 +4,7 @@ import {
   Column,
   Entity,
   JoinColumn,
-  OneToOne,
+  ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 @Entity('exercises')
@@ -12,11 +12,11 @@ export class Exercise {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @OneToOne((type) => Machine)
+  @ManyToOne((type) => Machine)
   @JoinColumn()
   machine: Machine;
 
-  @OneToOne((type) => User)
+  @ManyToOne((type) => User)
   @JoinColumn()
   user: User;
 

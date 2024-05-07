@@ -3,7 +3,7 @@ import {
   Column,
   Entity,
   JoinColumn,
-  OneToOne,
+  ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 @Entity('schedules')
@@ -11,7 +11,7 @@ export class Schedule {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @OneToOne((type) => User)
+  @ManyToOne((type) => User)
   @JoinColumn()
   trainer: User;
 
