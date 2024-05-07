@@ -14,7 +14,7 @@ import { CreatePassDTO } from './dto/create-pass.dto';
 import { UpdatePassDTO } from './dto/update-pass.dto';
 import { Pass } from './pass.entity';
 
-@Controller('passs')
+@Controller('passes')
 export class PassController {
   constructor(private passService: PassService) {}
   @Get()
