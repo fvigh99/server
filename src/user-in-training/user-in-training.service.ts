@@ -12,12 +12,15 @@ export class UserInTrainingService {
   ) {}
 
   async getUsersInTraining(): Promise<UserInTraining[]> {
-    return this.usersInTrainingRepository.find();
+    return this.usersInTrainingRepository.find({
+      relations: { schedule: true, user: true },
+    });
   }
 
   async getUserInTrainingById(id: number): Promise<UserInTraining> {
     const found = await this.usersInTrainingRepository.findOne({
       where: { id: id },
+      relations: { schedule: true, user: true },
     });
     if (!found) {
       throw new NotFoundException(`UserInTraining "${id}" not found`);
@@ -28,6 +31,7 @@ export class UserInTrainingService {
   async getUsersInTrainingByScheduleId(id: number): Promise<UserInTraining> {
     const found = await this.usersInTrainingRepository.findOne({
       where: { schedule: { id: id } },
+      relations: { schedule: true, user: true },
     });
     if (!found) {
       throw new NotFoundException(`UserInTraining "${id}" not found`);

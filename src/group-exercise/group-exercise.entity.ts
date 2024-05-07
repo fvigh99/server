@@ -3,8 +3,8 @@ import { User } from 'src/user/user.entity';
 import {
   Column,
   Entity,
-  JoinTable,
-  ManyToOne,
+  JoinColumn,
+  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 @Entity('groupExercises')
@@ -18,11 +18,11 @@ export class GroupExercise {
   @Column({ name: 'duration', type: 'int', nullable: false })
   duration: number;
 
-  @ManyToOne((type) => Schedule)
-  @JoinTable()
+  @OneToOne((type) => Schedule)
+  @JoinColumn()
   schedule: Schedule;
 
-  @ManyToOne((type) => User)
-  @JoinTable()
+  @OneToOne((type) => User)
+  @JoinColumn()
   user: User;
 }

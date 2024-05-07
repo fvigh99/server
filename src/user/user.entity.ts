@@ -3,8 +3,8 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinTable,
-  ManyToOne,
+  JoinColumn,
+  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 @Entity('users')
@@ -32,8 +32,8 @@ export class User {
   @Column({ name: 'picture', length: 400, nullable: true })
   picture: string;
 
-  @ManyToOne((type) => Pass)
-  @JoinTable()
+  @OneToOne((type) => Pass)
+  @JoinColumn()
   pass: Pass;
 
   @CreateDateColumn()

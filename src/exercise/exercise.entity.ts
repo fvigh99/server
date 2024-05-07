@@ -3,8 +3,8 @@ import { User } from 'src/user/user.entity';
 import {
   Column,
   Entity,
-  JoinTable,
-  ManyToOne,
+  JoinColumn,
+  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 @Entity('exercises')
@@ -12,12 +12,12 @@ export class Exercise {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne((type) => Machine)
-  @JoinTable()
+  @OneToOne((type) => Machine)
+  @JoinColumn()
   machine: Machine;
 
-  @ManyToOne((type) => User)
-  @JoinTable()
+  @OneToOne((type) => User)
+  @JoinColumn()
   user: User;
 
   @Column({ name: 'weight', type: 'int', nullable: true, default: null })

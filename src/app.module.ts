@@ -31,6 +31,7 @@ import { AuthenticationModule } from './authentication/authentication.module';
         encrypt: false,
       },
       synchronize: true,
+      autoLoadEntities: true,
       entities: [
         User,
         Pass,

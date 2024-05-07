@@ -14,11 +14,16 @@ export class ExerciseService {
   ) {}
 
   async getExercises(): Promise<Exercise[]> {
-    return await this.exercisesRepository.find();
+    return await this.exercisesRepository.find({
+      relations: { machine: true, user: true },
+    });
   }
 
   async getExerciseById(id: number): Promise<Exercise> {
-    const found = await this.exercisesRepository.findOne({ where: { id: id } });
+    const found = await this.exercisesRepository.findOne({
+      where: { id: id },
+      relations: { machine: true, user: true },
+    });
     if (!found) {
       throw new NotFoundException(`Exercise "${id}" not found`);
     }
@@ -28,6 +33,7 @@ export class ExerciseService {
   async getExerciseByUserId(id: number): Promise<Exercise> {
     const found = await this.exercisesRepository.findOne({
       where: { user: { id: id } },
+      relations: { machine: true, user: true },
     });
     if (!found) {
       throw new NotFoundException(`Exercise from user "${id}" not found`);

@@ -13,12 +13,15 @@ export class GroupExerciseService {
   ) {}
 
   async getGroupExercises(): Promise<GroupExercise[]> {
-    return this.groupExercisesRepository.find();
+    return this.groupExercisesRepository.find({
+      relations: { schedule: true, user: true },
+    });
   }
 
   async getGroupExerciseById(id: number): Promise<GroupExercise> {
     const found = await this.groupExercisesRepository.findOne({
       where: { id: id },
+      relations: { schedule: true, user: true },
     });
     if (!found) {
       throw new NotFoundException(`GroupExercise "${id}" not found`);

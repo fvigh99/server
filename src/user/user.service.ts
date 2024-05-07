@@ -5,6 +5,7 @@ import { CreateUserDTO } from './dto/create-user.dto';
 import { UpdateUserDTO } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
+import { log } from 'console';
 
 @Injectable()
 export class UserService {
@@ -14,11 +15,18 @@ export class UserService {
   ) {}
 
   async getUsers(): Promise<User[]> {
-    return await this.usersRepository.find();
+    return await this.usersRepository.find({
+      relations: {
+        pass: true,
+      },
+    });
   }
 
   async getUserById(id: number): Promise<User> {
-    const found = await this.usersRepository.findOne({ where: { id: id } });
+    const found = await this.usersRepository.findOne({
+      where: { id: id },
+      relations: { pass: true },
+    });
     /* if (!found) {
       throw new NotFoundException(`User "${id}" not found`);
     } */
@@ -27,7 +35,12 @@ export class UserService {
   }
 
   async getUserByRole(role: string): Promise<User[]> {
-    const users = await this.usersRepository.find({ where: { role: role } });
+    const users = await this.usersRepository.find({
+      where: { role: role },
+      relations: {
+        pass: true,
+      },
+    });
 
     return users;
   }
@@ -35,6 +48,7 @@ export class UserService {
   async getUserByUsername(username: string): Promise<User> {
     const found = await this.usersRepository.findOne({
       where: { username: username },
+      relations: { pass: true },
     });
     /* if (!found) {
       throw new NotFoundException(`User "${username}" not found`);
@@ -72,6 +86,7 @@ export class UserService {
   }
 
   async updateUser(id: number, updateUserDTO: UpdateUserDTO) {
+    log(updateUserDTO);
     const userFound = await this.getUserById(id);
     if (!userFound) throw new Error(`A user "${id}" was not found`);
     await this.usersRepository.update(id, {
@@ -82,6 +97,18 @@ export class UserService {
       email: updateUserDTO.email,
       picture: updateUserDTO.picture,
       pass: updateUserDTO.pass,
+      /* pass: {
+        id: updateUserDTO.pass?.id,
+        dailyEntryCount: updateUserDTO.pass?.dailyEntryCount,
+        entryPerWeek: updateUserDTO.pass?.entryPerWeek,
+        kickbox: updateUserDTO.pass?.kickbox,
+        pilates: updateUserDTO.pass?.pilates,
+        price: updateUserDTO.pass?.price,
+        sauna: updateUserDTO.pass?.sauna,
+        spinracing: updateUserDTO.pass?.spinracing,
+        type: updateUserDTO.pass?.type,
+        yoga: updateUserDTO.pass?.yoga,
+      }, */
     });
   }
 }

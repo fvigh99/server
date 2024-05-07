@@ -62,6 +62,16 @@ export class PassService {
   async updatePass(id: number, updatePassDTO: UpdatePassDTO) {
     const passFound = await this.getPassById(id);
     if (!passFound) throw new Error(`A note "${id}" was not found`);
-    await this.passsRepository.update(id, updatePassDTO);
+    await this.passsRepository.update(id, {
+      dailyEntryCount: updatePassDTO.dailyEntryCount,
+      entryPerWeek: updatePassDTO.entryPerWeek,
+      kickbox: updatePassDTO.kickbox,
+      pilates: updatePassDTO.pilates,
+      price: updatePassDTO.price,
+      sauna: updatePassDTO.sauna,
+      spinracing: updatePassDTO.spinracing,
+      type: updatePassDTO.type,
+      yoga: updatePassDTO.yoga,
+    });
   }
 }

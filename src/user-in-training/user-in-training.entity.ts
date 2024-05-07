@@ -1,15 +1,15 @@
 import { Schedule } from 'src/schedule/schedule.entity';
 import { User } from 'src/user/user.entity';
-import { Entity, JoinTable, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 @Entity('usersInTraining')
 export class UserInTraining {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne((type) => User)
-  @JoinTable()
+  @OneToOne((type) => User)
+  @JoinColumn()
   user: User;
-  @ManyToOne((type) => Schedule)
-  @JoinTable()
+  @OneToOne((type) => Schedule)
+  @JoinColumn()
   schedule: Schedule;
 }
