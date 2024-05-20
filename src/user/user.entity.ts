@@ -1,3 +1,4 @@
+import { Achievement } from 'src/achievement/achievement.entity';
 import { Pass } from 'src/pass/pass.entity';
 import {
   Column,
@@ -21,7 +22,7 @@ export class User {
   @Column({ name: 'lastname', length: 15, nullable: false })
   lastname: string;
 
-  @Column({ name: 'password', length: 200, nullable: false })
+  @Column({ name: 'password', length: 200, nullable: false, select: false })
   password: string;
 
   @Column({ name: 'email', length: 150, nullable: false })
@@ -31,8 +32,11 @@ export class User {
   role: string;
   @Column({ name: 'picture', length: 400, nullable: true })
   picture: string;
+  @ManyToOne(() => Achievement)
+  @JoinColumn()
+  achievements: Achievement[];
 
-  @ManyToOne((type) => Pass)
+  @ManyToOne(() => Pass)
   @JoinColumn()
   pass: Pass;
 

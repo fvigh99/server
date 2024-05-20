@@ -30,6 +30,7 @@ export class AuthenticationService {
         }
       });
       const payload = user ? { sub: user.id, username: user.username } : null;
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { password, ...result } = user;
       return {
         access_token: await this.jwtService.signAsync(payload),

@@ -6,10 +6,10 @@ export class UserInTraining {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne((type) => User)
+  @ManyToOne(() => User)
   @JoinColumn()
   user: User;
-  @ManyToOne((type) => Schedule)
+  @ManyToOne(() => Schedule)
   @JoinColumn()
   schedule: Schedule;
 }

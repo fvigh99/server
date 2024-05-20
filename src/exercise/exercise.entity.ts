@@ -12,11 +12,11 @@ export class Exercise {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne((type) => Machine)
+  @ManyToOne(() => Machine)
   @JoinColumn()
   machine: Machine;
 
-  @ManyToOne((type) => User)
+  @ManyToOne(() => User)
   @JoinColumn()
   user: User;
 

@@ -18,11 +18,11 @@ export class GroupExercise {
   @Column({ name: 'duration', type: 'int', nullable: false })
   duration: number;
 
-  @ManyToOne((type) => Schedule)
+  @ManyToOne(() => Schedule)
   @JoinColumn()
   schedule: Schedule;
 
-  @ManyToOne((type) => User)
+  @ManyToOne(() => User)
   @JoinColumn()
   user: User;
 }

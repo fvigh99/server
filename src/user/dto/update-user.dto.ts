@@ -9,8 +9,6 @@ export class UpdateUserDTO {
   firstname: string;
   @IsNotEmpty({ message: 'lastname field cannot be empty' })
   lastname: string;
-  @IsNotEmpty({ message: 'password field cannot be empty' })
-  password: string;
   @IsNotEmpty({ message: 'email field cannot be empty' })
   email: string;
   @IsNotEmpty({ message: 'role field cannot be empty' })
