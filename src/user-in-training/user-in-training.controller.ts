@@ -35,9 +35,20 @@ export class UserInTrainingController {
   @Get('/schedule/:id')
   getUserInTrainingByScheduleId(
     @Param('id') id: number,
-  ): Promise<UserInTraining> {
+  ): Promise<UserInTraining[]> {
     try {
       return this.userInTrainingService.getUsersInTrainingByScheduleId(id);
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  @Get('/user/:id')
+  getUserInTrainingByUserId(
+    @Param('id') id: number,
+  ): Promise<UserInTraining[]> {
+    try {
+      return this.userInTrainingService.getUsersInTrainingByUserId(id);
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }

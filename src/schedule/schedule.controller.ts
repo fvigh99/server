@@ -27,8 +27,8 @@ export class ScheduleController {
     }
   }
 
-  @Get('/getId/:id')
-  getScheduleById(@Param('id') id: number): Promise<Schedule> {
+  @Get('/getByTrainerId/:id')
+  getScheduleById(@Param('id') id: number): Promise<Schedule[]> {
     try {
       return this.scheduleService.getScheduleById(id);
     } catch (error) {

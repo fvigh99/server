@@ -18,14 +18,14 @@ export class Schedule {
   @Column({ name: 'day', type: 'int', nullable: false })
   day: number;
 
-  @Column({ name: 'start', length: 10, nullable: false })
-  start: string;
-  @Column({ name: 'end', length: 10, nullable: false })
-  end: string;
+  @Column({ name: 'start', nullable: false })
+  start: Date;
+  @Column({ name: 'end', nullable: false })
+  end: Date;
   @Column({ name: 'type', length: 40, nullable: false })
   type: string;
   @Column({ name: 'capacity', type: 'int', nullable: false })
   capacity: number;
-  @Column()
+  @Column({ default: false })
   inactive: boolean;
 }

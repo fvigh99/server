@@ -16,14 +16,15 @@ export class ScheduleService {
     return this.schedulesRepository.find({ relations: { trainer: true } });
   }
 
-  async getScheduleById(id: number): Promise<Schedule> {
-    const found = await this.schedulesRepository.findOne({
+  async getScheduleById(id: number): Promise<Schedule[]> {
+    const found = await this.schedulesRepository.find({
       where: { trainer: { id: id } },
       relations: { trainer: true },
     });
     /* if (!found) {
       throw new NotFoundException(`Schedule with trainer "${id}" not found`);
     } */
+
     return found;
   }
 

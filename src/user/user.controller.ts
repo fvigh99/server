@@ -13,6 +13,7 @@ import { UserService } from './user.service';
 import { CreateUserDTO } from './dto/create-user.dto';
 import { UpdateUserDTO } from './dto/update-user.dto';
 import { User } from './user.entity';
+import { log } from 'console';
 
 @Controller('users')
 export class UserController {
@@ -69,6 +70,7 @@ export class UserController {
   async updateUser(@Param('id') id: number, @Body() data: UpdateUserDTO) {
     const user = new User();
     Object.assign(user, data);
+    log(user);
     await this.userService.updateUser(id, user);
     return { message: 'User successfully updated', id };
   }

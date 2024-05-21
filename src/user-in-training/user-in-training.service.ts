@@ -28,8 +28,8 @@ export class UserInTrainingService {
     return found;
   }
 
-  async getUsersInTrainingByScheduleId(id: number): Promise<UserInTraining> {
-    const found = await this.usersInTrainingRepository.findOne({
+  async getUsersInTrainingByScheduleId(id: number): Promise<UserInTraining[]> {
+    const found = await this.usersInTrainingRepository.find({
       where: { schedule: { id: id } },
       relations: { schedule: true, user: true },
     });
@@ -39,6 +39,16 @@ export class UserInTrainingService {
     return found;
   }
 
+  async getUsersInTrainingByUserId(id: number): Promise<UserInTraining[]> {
+    const found = await this.usersInTrainingRepository.find({
+      where: { user: { id: id } },
+      relations: { schedule: true, user: true },
+    });
+    if (!found) {
+      throw new NotFoundException(`UserInTraining "${id}" not found`);
+    }
+    return found;
+  }
   async createUserInTraining(
     createUserInTrainingDTO: CreateUserInTrainingDTO,
   ): Promise<UserInTraining> {

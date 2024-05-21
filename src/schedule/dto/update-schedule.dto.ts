@@ -8,9 +8,9 @@ export class UpdateScheduleDTO {
   @IsNotEmpty({ message: 'day field cannot be empty' })
   day: number;
   @IsNotEmpty({ message: 'start field cannot be empty' })
-  start: string;
+  start: Date;
   @IsNotEmpty({ message: 'end field cannot be empty' })
-  end: string;
+  end: Date;
   @IsNotEmpty({ message: 'type field cannot be empty' })
   type: string;
   @IsNotEmpty({ message: 'capacity field cannot be empty' })

@@ -12,7 +12,7 @@ export class GroupExercise {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ name: 'type', length: 20, nullable: false })
+  @Column({ name: 'type', length: 40, nullable: false })
   type: string;
 
   @Column({ name: 'duration', type: 'int', nullable: false })
