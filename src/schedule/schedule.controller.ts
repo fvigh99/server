@@ -30,7 +30,7 @@ export class ScheduleController {
   @Get('/getByTrainerId/:id')
   getScheduleById(@Param('id') id: number): Promise<Schedule[]> {
     try {
-      return this.scheduleService.getScheduleById(id);
+      return this.scheduleService.getScheduleByTrainerId(id);
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }

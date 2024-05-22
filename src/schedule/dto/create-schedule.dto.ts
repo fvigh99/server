@@ -1,4 +1,4 @@
-import { IsNotEmpty } from 'class-validator';
+import { IsInt, IsNotEmpty } from 'class-validator';
 import { User } from 'src/user/user.entity';
 
 export class CreateScheduleDTO {
@@ -14,6 +14,8 @@ export class CreateScheduleDTO {
   @IsNotEmpty({ message: 'type field cannot be empty' })
   type: string;
   @IsNotEmpty({ message: 'capacity field cannot be empty' })
+  @IsInt({ message: 'capacity field must be number' })
   capacity: number;
+  attendanceCount: number;
   inactive?: boolean;
 }

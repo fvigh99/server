@@ -3,12 +3,14 @@ import { Repository } from 'typeorm';
 import { CreateUserInTrainingDTO } from './dto/create-user-in-training.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserInTraining } from './user-in-training.entity';
+import { ScheduleService } from 'src/schedule/schedule.service';
 
 @Injectable()
 export class UserInTrainingService {
   constructor(
     @InjectRepository(UserInTraining)
     private readonly usersInTrainingRepository: Repository<UserInTraining>,
+    private scheduleService: ScheduleService,
   ) {}
 
   async getUsersInTraining(): Promise<UserInTraining[]> {
@@ -58,14 +60,16 @@ export class UserInTrainingService {
       schedule,
     });
     await this.usersInTrainingRepository.save(userInTraining);
+    await this.scheduleService.editAttendanceCount(schedule.id, true);
     return userInTraining;
   }
 
   async deleteUserInTraining(id: number) {
-    const result = await this.usersInTrainingRepository.delete(id);
-    if (result.affected === 0) {
+    const found = await this.getUserInTrainingById(id);
+    if (!found)
       throw new NotFoundException(`userInTraining "${id}" was not found`);
-    }
+    await this.usersInTrainingRepository.delete(id);
+    await this.scheduleService.editAttendanceCount(found.schedule.id, false);
     return { message: 'UserInTraining successfully deleted' };
   }
 }

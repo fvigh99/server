@@ -33,6 +33,9 @@ export class ExerciseService {
     const found = await this.exercisesRepository.find({
       where: { user: { id: id } },
       relations: { machine: true, user: true },
+      order: {
+        date: 'DESC',
+      },
     });
     /* if (!found) {
       throw new NotFoundException(`Exercise from user "${id}" not found`);
@@ -41,11 +44,22 @@ export class ExerciseService {
   }
 
   async addExercise(createExerciseDTO: CreateExerciseDTO): Promise<Exercise> {
-    const { machine, user, weight, count, intensity, duration, date } =
-      createExerciseDTO;
+    const {
+      machine,
+      user,
+      type,
+      groupTrainingType,
+      weight,
+      count,
+      intensity,
+      duration,
+      date,
+    } = createExerciseDTO;
     const exercise = this.exercisesRepository.create({
       machine,
       user,
+      type,
+      groupTrainingType,
       weight,
       count,
       intensity,

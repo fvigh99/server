@@ -41,4 +41,68 @@ export class ImageUploadController {
       data: file.originalname.replace(/[^a-zA-Z0-9.]/g, ''),
     };
   }
+
+  @UseInterceptors(
+    FileInterceptor('picture', {
+      storage: diskStorage({
+        destination: 'E:/fitness-center/fitness-center/src/assets/achievements',
+        filename: (req, file, cb) => {
+          cb(null, file.originalname.replace(/[^a-zA-Z0-9.]/g, ''));
+        },
+      }),
+    }),
+  )
+  @Post('achievement-icon')
+  async achievementIcon(
+    @UploadedFile(
+      new ParseFilePipeBuilder()
+        .addFileTypeValidator({
+          fileType: 'image',
+        })
+        .addMaxSizeValidator({
+          maxSize: 100000000,
+        })
+        .build({
+          fileIsRequired: false,
+        }),
+    )
+    file?: Express.Multer.File,
+  ) {
+    return {
+      statusCode: 200,
+      data: file.originalname.replace(/[^a-zA-Z0-9.]/g, ''),
+    };
+  }
+
+  @UseInterceptors(
+    FileInterceptor('picture', {
+      storage: diskStorage({
+        destination: 'E:/fitness-center/fitness-center/src/assets/machines',
+        filename: (req, file, cb) => {
+          cb(null, file.originalname.replace(/[^a-zA-Z0-9.]/g, ''));
+        },
+      }),
+    }),
+  )
+  @Post('machine-picture')
+  async machinePicture(
+    @UploadedFile(
+      new ParseFilePipeBuilder()
+        .addFileTypeValidator({
+          fileType: 'image',
+        })
+        .addMaxSizeValidator({
+          maxSize: 100000000,
+        })
+        .build({
+          fileIsRequired: false,
+        }),
+    )
+    file?: Express.Multer.File,
+  ) {
+    return {
+      statusCode: 200,
+      data: file.originalname.replace(/[^a-zA-Z0-9.]/g, ''),
+    };
+  }
 }

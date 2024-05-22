@@ -17,13 +17,11 @@ import { Machine } from './machine/machine.entity';
 import { GroupExercise } from './group-exercise/group-exercise.entity';
 import { Exercise } from './exercise/exercise.entity';
 import { AuthenticationModule } from './authentication/authentication.module';
-import { AchievementService } from './achievement/achievement.service';
-import { AchievementController } from './achievement/achievement.controller';
 import { AchievementModule } from './achievement/achievement.module';
 import { Achievement } from './achievement/achievement.entity';
-import { ImageUploadController } from './image-upload/image-upload.controller';
-import { ImageUploadService } from './image-upload/image-upload.service';
 import { ImageUploadModule } from './image-upload/image-upload.module';
+import { PersonalGoalModule } from './personal-goal/personal-goal.module';
+import { PersonalGoal } from './personal-goal/personal-goal.entity';
 
 @Module({
   imports: [
@@ -48,6 +46,7 @@ import { ImageUploadModule } from './image-upload/image-upload.module';
         GroupExercise,
         Exercise,
         Achievement,
+        PersonalGoal,
       ],
     }),
     UserModule,
@@ -61,6 +60,7 @@ import { ImageUploadModule } from './image-upload/image-upload.module';
     AuthenticationModule,
     AchievementModule,
     ImageUploadModule,
+    PersonalGoalModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -8,7 +8,7 @@ import {
 } from 'typeorm';
 @Entity('achievements')
 export class Achievement {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn({})
   id: number;
 
   @Column({ name: 'name', length: 50, nullable: false })
@@ -21,7 +21,7 @@ export class Achievement {
   type: string;
 
   @Column({ name: 'eventCount', type: 'int', nullable: true, default: null })
-  count: number;
+  eventCount: number;
 
   @ManyToOne(() => Machine)
   @JoinColumn()
@@ -63,7 +63,7 @@ export class Achievement {
 
   @Column({
     name: 'icon',
-    length: 15,
+    length: 150,
     nullable: false,
   })
   icon: string;

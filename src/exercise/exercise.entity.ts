@@ -19,6 +19,15 @@ export class Exercise {
   @ManyToOne(() => User)
   @JoinColumn()
   user: User;
+  @Column({ name: 'type', length: 30, nullable: true, default: null })
+  type: string;
+  @Column({
+    name: 'groupTrainingType',
+    length: 30,
+    nullable: true,
+    default: null,
+  })
+  groupTrainingType: string;
 
   @Column({ name: 'weight', type: 'int', nullable: true, default: null })
   weight: number;

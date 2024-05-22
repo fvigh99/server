@@ -57,6 +57,7 @@ export class GroupExerciseService {
   ) {
     const groupExerciseFound = await this.getGroupExerciseById(id);
     if (!groupExerciseFound) throw new Error(`A note "${id}" was not found`);
-    await this.groupExercisesRepository.update(id, updateGroupExerciseDTO);
+    Object.assign(groupExerciseFound, updateGroupExerciseDTO);
+    await this.groupExercisesRepository.save(groupExerciseFound);
   }
 }

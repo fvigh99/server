@@ -26,6 +26,8 @@ export class Schedule {
   type: string;
   @Column({ name: 'capacity', type: 'int', nullable: false })
   capacity: number;
+  @Column({ name: 'attendanceCount', type: 'int', nullable: false, default: 0 })
+  attendanceCount: number;
   @Column({ default: false })
   inactive: boolean;
 }

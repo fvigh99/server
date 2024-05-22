@@ -95,18 +95,6 @@ export class UserService {
       email: updateUserDTO.email,
       picture: updateUserDTO.picture,
       pass: updateUserDTO.pass,
-      /* pass: {
-        id: updateUserDTO.pass?.id,
-        dailyEntryCount: updateUserDTO.pass?.dailyEntryCount,
-        entryPerWeek: updateUserDTO.pass?.entryPerWeek,
-        kickbox: updateUserDTO.pass?.kickbox,
-        pilates: updateUserDTO.pass?.pilates,
-        price: updateUserDTO.pass?.price,
-        sauna: updateUserDTO.pass?.sauna,
-        spinracing: updateUserDTO.pass?.spinracing,
-        type: updateUserDTO.pass?.type,
-        yoga: updateUserDTO.pass?.yoga,
-      }, */
     });
   }
 }

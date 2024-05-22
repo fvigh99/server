@@ -15,5 +15,6 @@ export class UpdateScheduleDTO {
   type: string;
   @IsNotEmpty({ message: 'capacity field cannot be empty' })
   capacity: number;
+  attendanceCount: number;
   inactive?: boolean;
 }

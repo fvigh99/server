@@ -16,14 +16,28 @@ export class ScheduleService {
     return this.schedulesRepository.find({ relations: { trainer: true } });
   }
 
-  async getScheduleById(id: number): Promise<Schedule[]> {
+  async getScheduleById(id: number): Promise<Schedule> {
+    const found = await this.schedulesRepository.findOne({
+      where: { id: id },
+      relations: { trainer: true },
+    });
+    if (!found) {
+      throw new NotFoundException(`Schedule "${id}" not found`);
+    }
+
+    return found;
+  }
+  async getScheduleByTrainerId(id: number): Promise<Schedule[]> {
     const found = await this.schedulesRepository.find({
       where: { trainer: { id: id } },
       relations: { trainer: true },
+      order: {
+        start: 'ASC',
+      },
     });
-    /* if (!found) {
+    if (!found) {
       throw new NotFoundException(`Schedule with trainer "${id}" not found`);
-    } */
+    }
 
     return found;
   }
@@ -66,5 +80,17 @@ export class ScheduleService {
       type: updateScheduleDTO.type,
       inactive: updateScheduleDTO.inactive,
     });
+  }
+
+  async editAttendanceCount(scheduleId: number, attend: boolean) {
+    const scheduleFound = await this.getScheduleById(scheduleId);
+    if (!scheduleFound)
+      throw new Error(`A schedule "${scheduleId}" was not found`);
+    if (attend) {
+      scheduleFound.attendanceCount++;
+    } else {
+      scheduleFound.attendanceCount--;
+    }
+    return await this.schedulesRepository.save(scheduleFound);
   }
 }
