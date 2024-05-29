@@ -12,8 +12,16 @@ export class MachineService {
     private readonly machinesRepository: Repository<Machine>,
   ) {}
 
-  async getMachines(): Promise<Machine[]> {
-    return this.machinesRepository.find();
+  async getMachines(flag: string): Promise<Machine[]> {
+    if (flag === 'A') {
+      return await this.machinesRepository.find({
+        where: {
+          flag: 'A',
+        },
+      });
+    } else {
+      return await this.machinesRepository.find();
+    }
   }
 
   async getMachineById(id: number): Promise<Machine> {
@@ -36,7 +44,7 @@ export class MachineService {
     return machine;
   }
 
-  async removeMachine(id: number) {
+  async deleteMachine(id: number) {
     const result = await this.machinesRepository.delete(id);
     if (result.affected === 0) {
       throw new NotFoundException(`machine "${id}" was not found`);
@@ -52,6 +60,7 @@ export class MachineService {
       picture: updateMachineDTO.picture,
       summary: updateMachineDTO.summary,
       type: updateMachineDTO.type,
+      flag: updateMachineDTO.flag,
     });
   }
 }

@@ -51,7 +51,7 @@ export class PassService {
     return pass;
   }
 
-  async removePass(id: number) {
+  async deletePass(id: number) {
     const result = await this.passsRepository.delete(id);
     if (result.affected === 0) {
       throw new NotFoundException(`pass "${id}" was not found`);

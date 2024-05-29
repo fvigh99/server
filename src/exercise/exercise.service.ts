@@ -4,12 +4,15 @@ import { Repository } from 'typeorm';
 import { CreateExerciseDTO } from './dto/create-exercise.dto';
 import { UpdateExerciseDTO } from './dto/update-exercise.dto';
 import { InjectRepository } from '@nestjs/typeorm';
+import { EarnedAchievementService } from 'src/earned-achievement/earned-achievement.service';
+import { ExerciseWithAchievement } from './exercise.controller';
 
 @Injectable()
 export class ExerciseService {
   constructor(
     @InjectRepository(Exercise)
     private readonly exercisesRepository: Repository<Exercise>,
+    private earnedAchievementService: EarnedAchievementService,
   ) {}
 
   async getExercises(): Promise<Exercise[]> {
@@ -43,7 +46,9 @@ export class ExerciseService {
     return found;
   }
 
-  async addExercise(createExerciseDTO: CreateExerciseDTO): Promise<Exercise> {
+  async addExercise(
+    createExerciseDTO: CreateExerciseDTO,
+  ): Promise<ExerciseWithAchievement> {
     const {
       machine,
       user,
@@ -67,15 +72,31 @@ export class ExerciseService {
       date,
     });
     await this.exercisesRepository.save(exercise);
-    return exercise;
+    const userExercises = await this.getExerciseByUserId(exercise.user.id);
+    const achievement =
+      await this.earnedAchievementService.checkIfAchievementEarned(
+        exercise,
+        userExercises,
+      );
+    return { exercise: exercise, achievement: achievement };
   }
 
-  async removeExercise(id: number) {
+  async deleteExercise(id: number): Promise<ExerciseWithAchievement> {
+    const exercise = await this.exercisesRepository.findOne({
+      where: { id: id },
+      relations: { user: true, machine: true },
+    });
     const result = await this.exercisesRepository.delete(id);
     if (result.affected === 0) {
       throw new NotFoundException(`exercise "${id}" was not found`);
     }
-    return { message: 'Exercise successfully deleted' };
+    const exerciseList = await this.getExerciseByUserId(exercise.user.id);
+    const achievement =
+      await this.earnedAchievementService.checkIfAchievementDeleted(
+        exercise,
+        exerciseList,
+      );
+    return { exercise: null, achievement: achievement };
   }
 
   async updateExercise(id: number, updateExerciseDTO: UpdateExerciseDTO) {

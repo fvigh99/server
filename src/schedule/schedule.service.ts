@@ -10,6 +10,7 @@ export class ScheduleService {
   constructor(
     @InjectRepository(Schedule)
     private readonly schedulesRepository: Repository<Schedule>,
+    /* private userInTrainingService: UserInTrainingService, */
   ) {}
 
   async getSchedules(): Promise<Schedule[]> {
@@ -61,6 +62,7 @@ export class ScheduleService {
   }
 
   async deleteSchedule(id: number) {
+    /* this.userInTrainingService.deleteUserInTrainingByScheduleId(id); */
     const result = await this.schedulesRepository.delete(id);
     if (result.affected === 0) {
       throw new NotFoundException(`schedule "${id}" was not found`);

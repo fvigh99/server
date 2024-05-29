@@ -8,5 +8,6 @@ import { Schedule } from './schedule.entity';
   imports: [TypeOrmModule.forFeature([Schedule])],
   controllers: [ScheduleController],
   providers: [ScheduleService],
+  exports: [ScheduleService],
 })
 export class ScheduleModule {}

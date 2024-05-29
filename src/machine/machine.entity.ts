@@ -13,4 +13,6 @@ export class Machine {
   picture: string;
   @Column({ name: 'name', length: 60, nullable: false })
   name: string;
+  @Column({ name: 'flag', length: 1, nullable: false, default: 'A' })
+  flag: string;
 }

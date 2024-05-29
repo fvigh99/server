@@ -50,7 +50,7 @@ export class PassController {
   @Delete('/:id')
   deletePass(@Param('id') id: number) {
     try {
-      return this.passService.removePass(id);
+      return this.passService.deletePass(id);
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }

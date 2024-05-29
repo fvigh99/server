@@ -1,7 +1,7 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { UserService } from 'src/user/user.service';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
+import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class AuthenticationService {
@@ -21,14 +21,15 @@ export class AuthenticationService {
         message: message,
       };
     } else {
-      await bcrypt.compare(pass, user.password, function (err, result) {
-        if (err) {
-          message = err;
-        } else if (!result) {
-          message = 'Hibás bejelentkezési adatok!';
-          throw new UnauthorizedException();
-        }
-      });
+      const validPassword = await bcrypt.compare(pass, user.password);
+      if (!validPassword) {
+        message = 'Hibás bejelentkezési adatok';
+        return {
+          access_token: null,
+          user_object: null,
+          message: message,
+        };
+      }
       const payload = user ? { sub: user.id, username: user.username } : null;
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { password, ...result } = user;

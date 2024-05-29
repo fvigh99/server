@@ -50,7 +50,7 @@ export class GroupExerciseController {
   @Delete('/:id')
   deleteGroupExercise(@Param('id') id: number) {
     try {
-      return this.groupExerciseService.removeGroupExercise(id);
+      return this.groupExerciseService.deleteGroupExercise(id);
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }

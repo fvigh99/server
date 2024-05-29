@@ -63,7 +63,7 @@ export class AchievementService {
     return achievement;
   }
 
-  async removeAchievement(id: number) {
+  async deleteAchievement(id: number) {
     const result = await this.achievementsRepository.delete(id);
     if (result.affected === 0) {
       throw new NotFoundException(`achievement "${id}" was not found`);

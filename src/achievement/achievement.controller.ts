@@ -51,7 +51,7 @@ export class AchievementController {
   @Delete('/:id')
   deleteAchievement(@Param('id') id: number) {
     try {
-      return this.achievementService.removeAchievement(id);
+      return this.achievementService.deleteAchievement(id);
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }

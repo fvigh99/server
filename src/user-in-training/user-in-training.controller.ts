@@ -74,4 +74,13 @@ export class UserInTrainingController {
       throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
+
+  @Delete('/deleteMany/:id')
+  deleteMany(@Param('id') id: number) {
+    try {
+      return this.userInTrainingService.deleteUserInTrainingByScheduleId(id);
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
 }

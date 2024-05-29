@@ -6,7 +6,7 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-@Entity('personal-goal')
+@Entity('personalGoal')
 export class PersonalGoal {
   @PrimaryGeneratedColumn()
   id: number;

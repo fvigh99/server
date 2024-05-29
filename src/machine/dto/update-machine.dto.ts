@@ -10,4 +10,5 @@ export class UpdateMachineDTO {
   picture: string;
   @IsNotEmpty({ message: 'name field cannot be empty' })
   name: string;
+  flag: string;
 }

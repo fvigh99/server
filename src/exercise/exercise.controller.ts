@@ -13,6 +13,12 @@ import { ExerciseService } from './exercise.service';
 import { CreateExerciseDTO } from './dto/create-exercise.dto';
 import { UpdateExerciseDTO } from './dto/update-exercise.dto';
 import { Exercise } from './exercise.entity';
+import { Achievement } from 'src/achievement/achievement.entity';
+
+export interface ExerciseWithAchievement {
+  exercise?: Exercise;
+  achievement?: Achievement;
+}
 
 @Controller('exercises')
 export class ExerciseController {
@@ -48,7 +54,7 @@ export class ExerciseController {
   createExercise(
     @Body()
     createExerciseDTO: CreateExerciseDTO,
-  ): Promise<Exercise> {
+  ): Promise<ExerciseWithAchievement> {
     try {
       return this.exerciseService.addExercise(createExerciseDTO);
     } catch (error) {
@@ -59,7 +65,7 @@ export class ExerciseController {
   @Delete('/:id')
   deleteExercise(@Param('id') id: number) {
     try {
-      return this.exerciseService.removeExercise(id);
+      return this.exerciseService.deleteExercise(id);
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }

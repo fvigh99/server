@@ -43,7 +43,7 @@ export class GroupExerciseService {
     return groupExercise;
   }
 
-  async removeGroupExercise(id: number) {
+  async deleteGroupExercise(id: number) {
     const result = await this.groupExercisesRepository.delete(id);
     if (result.affected === 0) {
       throw new NotFoundException(`groupExercise "${id}" was not found`);

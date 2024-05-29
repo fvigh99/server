@@ -17,10 +17,10 @@ import { Machine } from './machine.entity';
 @Controller('machines')
 export class MachineController {
   constructor(private machineService: MachineService) {}
-  @Get()
-  getMachines() {
+  @Get('/flag/:flag')
+  getMachines(@Param('flag') flag: string) {
     try {
-      return this.machineService.getMachines();
+      return this.machineService.getMachines(flag);
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -50,7 +50,7 @@ export class MachineController {
   @Delete('/:id')
   deleteMachine(@Param('id') id: number) {
     try {
-      return this.machineService.removeMachine(id);
+      return this.machineService.deleteMachine(id);
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
